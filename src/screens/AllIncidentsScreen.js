@@ -3,21 +3,21 @@ import React from "react";
 import IncidentsList from "../components/IncidentsList";
 
 const incidentList = [
-	{
-		id: "01",
-		title: "Fire near tank",
-		address: "ryan enclave",
-	},
-	{
-		id: "02",
-		title: "Flood in school",
-		address: "Sohna",
-	},
+	// {
+	// 	id: "01",
+	// 	title: "Fire near tank",
+	// 	address: "ryan enclave",
+	// },
+	// {
+	// 	id: "02",
+	// 	title: "Flood in school",
+	// 	address: "Sohna",
+	// },
 ];
-const HomeScreen = () => {
+const AllIncidentsScreen = () => {
 	return <IncidentsList incidents={incidentList} />;
 };
 
-export default HomeScreen;
+export default AllIncidentsScreen;
 
 const styles = StyleSheet.create({});
