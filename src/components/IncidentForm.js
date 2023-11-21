@@ -11,6 +11,7 @@ import {
 import React, { useState } from "react";
 import { Colors } from "../constants/colors";
 import ImagePicker from "./ImagePicker";
+import LocationPicker from "./LocationPicker";
 
 const IncidentForm = () => {
 	const [caption, setCation] = useState("");
@@ -28,10 +29,7 @@ const IncidentForm = () => {
 				/>
 
 				<ImagePicker />
-				{/* <Image
-					source={{ uri: selectedImage }}
-					style={{ height: 200, width: 200 }}
-				/> */}
+				<LocationPicker />
 			</View>
 		</ScrollView>
 	);
