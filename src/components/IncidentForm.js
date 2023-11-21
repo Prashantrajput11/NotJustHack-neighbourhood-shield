@@ -7,13 +7,15 @@ import {
 	Button,
 	TouchableOpacity,
 	Image,
+	Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "../constants/colors";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
-
+import { useNavigation } from "@react-navigation/native";
 const IncidentForm = () => {
+	const navigation = useNavigation();
 	const [caption, setCation] = useState("");
 
 	return (
@@ -30,6 +32,10 @@ const IncidentForm = () => {
 
 				<ImagePicker />
 				<LocationPicker />
+
+				<Pressable onPress={() => navigation.navigate("MapScreen")}>
+					<Text>View Map</Text>
+				</Pressable>
 			</View>
 		</ScrollView>
 	);

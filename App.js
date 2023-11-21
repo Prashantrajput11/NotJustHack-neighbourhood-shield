@@ -6,6 +6,7 @@ import AllIncidentsScreen from "./src/screens/AllIncidentsScreen";
 import AddIncidentScreen from "./src/screens/AddIncidentScreen";
 import IconButton from "./src/UI/IconButton";
 import { Colors } from "./src/constants/colors";
+import MapScreen from "./src/screens/MapScreen";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -39,6 +40,13 @@ export default function App() {
 						component={AddIncidentScreen}
 						options={{
 							title: "Add An Incident",
+						}}
+					></Stack.Screen>
+					<Stack.Screen
+						name="MapScreen"
+						component={MapScreen}
+						options={{
+							title: "Map screen",
 						}}
 					></Stack.Screen>
 				</Stack.Navigator>
