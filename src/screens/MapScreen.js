@@ -3,11 +3,7 @@ import React from "react";
 import Map from "../components/Map";
 
 const MapScreen = () => {
-	return (
-		<View>
-			<Map />
-		</View>
-	);
+	return <Map mapHeight={"100%"} mapWidth={"100%"} />;
 };
 
 export default MapScreen;
