@@ -6,44 +6,44 @@ import IconButton from "../UI/IconButton";
 
 const MapScreen = () => {
 	const navigation = useNavigation();
-	const [markedLocation, setMarkedLocation] = useState();
+	// const [markedLocation, setMarkedLocation] = useState();
 
 	// Function to confirm and save location
-	const savePickedLocationHandler = useCallback(() => {
-		if (!markedLocation) {
-			Alert.alert(
-				"No Location Picked",
-				"Please Pick A Location By Tapping On The Map"
-			);
+	// const savePickedLocationHandler = useCallback(() => {
+	// 	if (!markedLocation) {
+	// 		Alert.alert(
+	// 			"No Location Picked",
+	// 			"Please Pick A Location By Tapping On The Map"
+	// 		);
 
-			return;
-		}
+	// 		return;
+	// 	}
 
-		navigation.navigate("AddIncident", {
-			pickedLat: markedLocation.lat,
-			pickedLng: markedLocation.lng,
-		});
-	}, [navigation, markedLocation]);
+	// 	navigation.navigate("AddIncident", {
+	// 		pickedLat: markedLocation.lat,
+	// 		pickedLng: markedLocation.lng,
+	// 	});
+	// }, [navigation, markedLocation]);
 
-	useLayoutEffect(() => {
-		navigation.setOptions({
-			headerRight: ({ tintColor }) => (
-				<IconButton
-					name="save"
-					size={24}
-					color={tintColor}
-					onPress={savePickedLocationHandler}
-				/>
-			),
-		});
-	}, [navigation, savePickedLocationHandler]);
+	// useLayoutEffect(() => {
+	// 	navigation.setOptions({
+	// 		headerRight: ({ tintColor }) => (
+	// 			<IconButton
+	// 				name="save"
+	// 				size={24}
+	// 				color={tintColor}
+	// 				onPress={savePickedLocationHandler}
+	// 			/>
+	// 		),
+	// 	});
+	// }, [navigation, savePickedLocationHandler]);
 
 	return (
 		<Map
 			mapHeight={"100%"}
 			mapWidth={"100%"}
-			markedLocation={markedLocation}
-			setMarkedLocation={setMarkedLocation}
+			// markedLocation={markedLocation}
+			// setMarkedLocation={setMarkedLocation}
 		/>
 	);
 };

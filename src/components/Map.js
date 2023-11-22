@@ -4,8 +4,10 @@ import MapView, { Marker } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import IconButton from "../UI/IconButton";
 
-const Map = ({ mapHeight, mapWidth, markedLocation, setMarkedLocation }) => {
+const Map = ({ mapHeight, mapWidth, tc }) => {
+	console.log({ tc });
 	const navigation = useNavigation();
+	const [markedLocation, setMarkedLocation] = useState();
 
 	console.log({ markedLocation });
 	region = {
@@ -43,7 +45,7 @@ const Map = ({ mapHeight, mapWidth, markedLocation, setMarkedLocation }) => {
 		navigation.setOptions({
 			headerRight: ({ tintColor }) => (
 				<IconButton
-					icon="save"
+					name="save"
 					size={24}
 					color={tintColor}
 					onPress={savePickedLocationHandler}
@@ -61,8 +63,8 @@ const Map = ({ mapHeight, mapWidth, markedLocation, setMarkedLocation }) => {
 			// zoomTapEnabled
 			style={{ height: mapHeight, width: mapWidth }}
 			region={{
-				latitude: 28.366113,
-				longitude: 77.065738,
+				latitude: tc ? tc.lat : 28.366113,
+				longitude: tc ? tc.lng : 77.065738,
 				latitudeDelta: 0.922,
 				longitudeDelta: 0.0421,
 			}}
@@ -71,10 +73,10 @@ const Map = ({ mapHeight, mapWidth, markedLocation, setMarkedLocation }) => {
 			{markedLocation && (
 				<Marker
 					coordinate={{
-						latitude: markedLocation.lat,
-						longitude: markedLocation.lng,
+						latitude: tc ? tc.lat : markedLocation.lat,
+						longitude: tc ? tc.lng : markedLocation.lng,
 					}}
-					title={"picked location"}
+					title={"danger zone"}
 					draggable
 					onDragEnd={(e) =>
 						setMarkedLocation(e.nativeEvent.coordinate.latitude)

@@ -32,10 +32,6 @@ const IncidentForm = () => {
 
 				<ImagePicker />
 				<LocationPicker />
-
-				<Pressable onPress={() => navigation.navigate("MapScreen")}>
-					<Text>View Map</Text>
-				</Pressable>
 			</View>
 		</ScrollView>
 	);

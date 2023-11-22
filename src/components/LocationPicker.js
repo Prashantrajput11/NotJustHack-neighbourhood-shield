@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OutlineButton from "../UI/OutlineButton";
 import { Colors } from "../constants/colors";
 import {
@@ -8,13 +8,36 @@ import {
 	PermissionStatus,
 } from "expo-location";
 import Map from "./Map";
-import { useNavigation } from "@react-navigation/native";
+import {
+	useNavigation,
+	useRoute,
+	useIsFocused,
+} from "@react-navigation/native";
 
 const LocationPicker = () => {
+	// Navigation Hooks
 	const navigation = useNavigation();
+	const route = useRoute();
+
+	// Init Local States
 	const [pickedLocation, setPickedLocation] = useState();
+	const isFocused = useIsFocused();
 	const [locationPermissionInformation, requestPermission] =
 		useForegroundPermissions();
+
+	// useEffect Hook - run whenever picked location changes
+
+	// let mapPickedLocation = {};
+	useEffect(() => {
+		if (isFocused && route.params) {
+			const mapPickedLocation = route.params && {
+				lat: route.params.pickedLat,
+				lng: route.params.pickedLng,
+			};
+			setPickedLocation(mapPickedLocation);
+		}
+	}, [route, isFocused]);
+
 	// Allow Permission services
 	async function verifyPermssions() {
 		if (
@@ -53,7 +76,7 @@ const LocationPicker = () => {
 	let mapPreview = <Text>No Location Picked Yet</Text>;
 	if (pickedLocation) {
 		console.log({ pickedLocation });
-		mapPreview = <Map mapHeight={200} mapWidth={350} />;
+		mapPreview = <Map mapHeight={200} mapWidth={350} tc={pickedLocation} />;
 	}
 	return (
 		<View>
