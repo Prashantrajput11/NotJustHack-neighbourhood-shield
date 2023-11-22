@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
+import { useNavigation } from "@react-navigation/native";
+import IconButton from "../UI/IconButton";
 
-const Map = ({ mapHeight, mapWidth }) => {
-	const [markedLocation, setMarkedLocation] = useState();
+const Map = ({ mapHeight, mapWidth, markedLocation, setMarkedLocation }) => {
+	const navigation = useNavigation();
 
 	console.log({ markedLocation });
 	region = {
@@ -19,6 +21,37 @@ const Map = ({ mapHeight, mapWidth }) => {
 
 		setMarkedLocation({ lat: lat, lng: lng });
 	}
+
+	// Function to confirm and save location
+	const savePickedLocationHandler = useCallback(() => {
+		if (!markedLocation) {
+			Alert.alert(
+				"No Location Picked",
+				"Please Pick A Location By Tapping On The Map"
+			);
+
+			return;
+		}
+
+		navigation.navigate("AddIncident", {
+			pickedLat: markedLocation.lat,
+			pickedLng: markedLocation.lng,
+		});
+	}, [navigation, markedLocation]);
+
+	useLayoutEffect(() => {
+		navigation.setOptions({
+			headerRight: ({ tintColor }) => (
+				<IconButton
+					icon="save"
+					size={24}
+					color={tintColor}
+					onPress={savePickedLocationHandler}
+				/>
+			),
+		});
+	}, [navigation, savePickedLocationHandler]);
+
 	return (
 		<MapView
 			// provider="google"
@@ -42,6 +75,10 @@ const Map = ({ mapHeight, mapWidth }) => {
 						longitude: markedLocation.lng,
 					}}
 					title={"picked location"}
+					draggable
+					onDragEnd={(e) =>
+						setMarkedLocation(e.nativeEvent.coordinate.latitude)
+					}
 					// description={marker.description}
 				/>
 			)}
