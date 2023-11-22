@@ -3,10 +3,16 @@ import React from "react";
 import { Colors } from "../constants/colors";
 import IncidentForm from "../components/IncidentForm";
 
-const AddIncidentScreen = () => {
+const AddIncidentScreen = ({ navigation }) => {
+	function createIncidentHandler(incident) {
+		// Save to device data base
+		navigation.navigate("All Incidents", {
+			incident: incident,
+		});
+	}
 	return (
 		<View>
-			<IncidentForm />
+			<IncidentForm onCreateIncident={createIncidentHandler} />
 		</View>
 	);
 };

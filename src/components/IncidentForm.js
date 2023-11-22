@@ -9,14 +9,40 @@ import {
 	Image,
 	Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Colors } from "../constants/colors";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
 import { useNavigation } from "@react-navigation/native";
-const IncidentForm = () => {
+const IncidentForm = ({ onCreateIncident }) => {
 	const navigation = useNavigation();
 	const [caption, setCation] = useState("");
+	const [selectedImage, setSelectedImage] = useState();
+	const [pickedLocation, setPickedLocation] = useState();
+
+	// To Handle Image
+	function takeImageHandler(imageUri) {
+		setSelectedImage(imageUri);
+	}
+
+	// To Handle Location
+	const pickLocationHandler = useCallback((location) => {
+		setPickedLocation(location);
+	}, []);
+
+	// Handle Save Places
+	function savePlaceHandler() {
+		const incidentData = {
+			caption: caption,
+			selectedImage: selectedImage,
+			pickedLocation: pickedLocation,
+		};
+
+		onCreateIncident(incidentData);
+		// console.log({ caption });
+		// console.log({ selectedImage });
+		// console.log({ pickedLocation });
+	}
 
 	return (
 		<ScrollView>
@@ -26,12 +52,27 @@ const IncidentForm = () => {
 					value={caption}
 					onChangeText={(text) => setCation(text)}
 					style={styles.input}
-					multiline={true}
-					numberOfLines={4}
+					// multiline={true}
+					// numberOfLines={4}
 				/>
 
-				<ImagePicker />
-				<LocationPicker />
+				<ImagePicker onTakeImage={takeImageHandler} />
+				<LocationPicker onPickLocation={pickLocationHandler} />
+				<TouchableOpacity
+					style={{
+						backgroundColor: Colors.maroon,
+						width: 150,
+						alignSelf: "center",
+						alignItems: "center",
+						padding: 4,
+						borderRadius: 4,
+						elevation: 6,
+						marginTop: 16,
+					}}
+					onPress={savePlaceHandler}
+				>
+					<Text style={{ color: Colors.beige }}>Add Incident</Text>
+				</TouchableOpacity>
 			</View>
 		</ScrollView>
 	);

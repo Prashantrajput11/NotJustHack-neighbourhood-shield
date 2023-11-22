@@ -3,6 +3,7 @@ import React from "react";
 import IncidentCard from "./IncidentCard";
 
 const IncidentsList = ({ incidents }) => {
+	console.log({ incidents });
 	if (!incidents || incidents.length === 0) {
 		return (
 			<View style={styles.fallbackContainer}>
@@ -12,8 +13,10 @@ const IncidentsList = ({ incidents }) => {
 	}
 	return (
 		<FlatList
+			style={{ margin: 6 }}
 			data={incidents}
 			renderItem={({ item }) => <IncidentCard incident={item} />}
+			showsVerticalScrollIndicator={false}
 		/>
 	);
 };

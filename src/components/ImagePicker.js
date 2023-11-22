@@ -4,7 +4,7 @@ import { launchImageLibraryAsync } from "expo-image-picker";
 import { Colors } from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 
-const ImagePicker = () => {
+const ImagePicker = ({ onTakeImage }) => {
 	const [selectedImage, setSelectedImage] = useState("");
 
 	const takePhoto = async () => {
@@ -14,6 +14,7 @@ const ImagePicker = () => {
 			quality: 0.6,
 		});
 		setSelectedImage(result.uri);
+		onTakeImage(result.uri);
 	};
 
 	let imagePreview = <Text>No Image Yet</Text>;

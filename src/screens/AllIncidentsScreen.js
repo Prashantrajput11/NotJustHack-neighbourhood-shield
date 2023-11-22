@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IncidentsList from "../components/IncidentsList";
+import { useIsFocused } from "@react-navigation/native";
 
 const incidentList = [
 	// {
@@ -14,8 +15,23 @@ const incidentList = [
 	// 	address: "Sohna",
 	// },
 ];
-const AllIncidentsScreen = () => {
-	return <IncidentsList incidents={incidentList} />;
+const AllIncidentsScreen = ({ route }) => {
+	const [loadedIncidents, setLoadedIncidents] = useState([]);
+
+	// const data = route.params.incident;
+	// console.log({ data });
+	// console.log({ loadedIncidents });
+	const isFocused = useIsFocused();
+	useEffect(() => {
+		if (route.params && isFocused) {
+			setLoadedIncidents((currIncidents) => [
+				...currIncidents,
+				route.params.incident,
+			]);
+		}
+	}, [isFocused]);
+
+	return <IncidentsList incidents={loadedIncidents} />;
 };
 
 export default AllIncidentsScreen;
